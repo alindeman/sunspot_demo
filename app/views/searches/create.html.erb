@@ -1,0 +1,24 @@
+<h1>Book Results</h1>
+
+<%- unless params[:decade].present? %>
+  Restrict by Decade:
+
+  <ul>
+  <%- @search.facet(:year).rows.each do |row| %>
+    <li>
+    <%= link_to "#{row.value}s", searches_path(params.merge(decade: row.value)), method: :post %>
+    (<%= row.count %>)
+    </li>
+  <%- end %>
+  </ul>
+<%- end %>
+
+<%- @search.each_hit_with_result do |hit, result| %>
+  <p>
+    <strong><%= result.title %></strong> (<%= "%.02f%%" % (100 * hit.score / @max_score) %>)<br/>
+    Published: <%= result.year %><br/>
+    <%- hit.highlights(:body).each do |highlight| %>
+      <i><%= highlight.format { |w| "<b>#{w}</b>" }.html_safe %></i><br/>
+    <%- end %>
+  </p>
+<%- end %>

@@ -1,0 +1,15 @@
+<h1>Book Search</h1>
+
+<%= form_tag searches_path, method: :post do |f| %>
+  <p>
+    <%= label_tag "query", "Search Book Contents" %>
+    <%= text_field_tag "query", params[:query], size: 80 %>
+  </p>
+
+  <p>
+    <%= label_tag "author_id", "Restrict to an Author" %>
+    <%= select_tag "author_id", options_from_collection_for_select(Author.scoped, "id", "name", params[:author_id]), include_blank: true %>
+  </p>
+
+  <%= submit_tag "Search" %>
+<%- end %>
