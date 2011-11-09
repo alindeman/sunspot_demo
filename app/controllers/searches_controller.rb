@@ -12,12 +12,6 @@ class SearchesController < ApplicationController
       # Author restriction
       with(:author_id, params[:author_id]) if params[:author_id].present?
 
-      # Decade restriction
-      if params[:decade].present?
-        decade = params[:decade].to_i
-        with(:year, Range.new(decade, decade + 9))
-      end
-
       # Decade faceting
       facet(:year, sort: :index) do
         (1700..2010).step(10).each do |decade|
@@ -25,6 +19,12 @@ class SearchesController < ApplicationController
             with(:year, Range.new(decade, decade + 9))
           end
         end
+      end
+
+      # Decade restriction
+      if params[:decade].present?
+        decade = params[:decade].to_i
+        with(:year, Range.new(decade, decade + 9))
       end
     end
 

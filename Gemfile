@@ -11,7 +11,6 @@ gem 'sunspot',       '1.3.0.rc6'
 gem 'sunspot_rails', '1.3.0.rc6'
 gem 'sunspot_solr',  '1.3.0.rc6'
 
-
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
